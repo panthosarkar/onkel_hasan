@@ -1,21 +1,205 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f0f0f">
-  <title>Onkel Hasan Logo</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <div class="logo-container">
-    <figure class="brand-logo-wrap">
-      <video class="brand-logo" autoplay muted loop playsinline>
-        <source src="assets/logo.mp4" type="video/mp4">
-      </video>
-    </figure>
-  </div>
-</body>
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ONKEL HASAN — Döner & Kebab</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel+Decorative:wght@700&family=Outfit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- CUSTOM CURSOR -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- LOADER -->
+    <div id="loader">
+      <div id="loader-kebab">🥙</div>
+      <div id="loader-bar-wrap">
+        <div id="loader-bar"></div>
+      </div>
+      <div id="loader-label">PREPARING YOUR DÖNER</div>
+    </div>
+
+    <!-- HERO -->
+    <section id="hero">
+      <!-- Background canvas -->
+      <canvas id="bg-canvas"></canvas>
+
+      <!-- Heat overlay -->
+      <div class="heat-layer"></div>
+
+      <!-- Ember sparks -->
+      <div class="sparks" id="sparks"></div>
+
+      <!-- Corner ornaments -->
+      <div class="corner tl">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2 L2 30 M2 2 L30 2" stroke="#e8b84b" stroke-width="1.5" />
+          <circle cx="2" cy="2" r="3" fill="#e8b84b" />
+        </svg>
+      </div>
+      <div class="corner tr">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2 L2 30 M2 2 L30 2" stroke="#e8b84b" stroke-width="1.5" />
+          <circle cx="2" cy="2" r="3" fill="#e8b84b" />
+        </svg>
+      </div>
+      <div class="corner bl">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2 L2 30 M2 2 L30 2" stroke="#e8b84b" stroke-width="1.5" />
+          <circle cx="2" cy="2" r="3" fill="#e8b84b" />
+        </svg>
+      </div>
+      <div class="corner br">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2 L2 30 M2 2 L30 2" stroke="#e8b84b" stroke-width="1.5" />
+          <circle cx="2" cy="2" r="3" fill="#e8b84b" />
+        </svg>
+      </div>
+
+      <!-- Side labels -->
+      <div class="side-label" id="label-left">WIEN · AUSTRIA · SEIT 2010</div>
+      <div class="side-label" id="label-right">DÖNER · KEBAB · LAHMACUN</div>
+
+      <!-- Nav dots -->
+      <div id="nav-dots">
+        <div class="dot-line"></div>
+        <div class="dot-line"></div>
+        <div class="dot-line"></div>
+      </div>
+
+      <!-- Interactive Logo -->
+      <div id="logo-wrap">
+        <div id="logo-ring">
+          <!-- Rotating ring SVG -->
+          <svg
+            id="ring-svg"
+            viewBox="0 0 340 340"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <path
+                id="textCircle"
+                d="M 170,170 m -130,0 a 130,130 0 1,1 260,0 a 130,130 0 1,1 -260,0"
+              />
+            </defs>
+            <circle
+              cx="170"
+              cy="170"
+              r="160"
+              fill="none"
+              stroke="rgba(232,184,75,0.12)"
+              stroke-width="1"
+            />
+            <circle
+              cx="170"
+              cy="170"
+              r="155"
+              fill="none"
+              stroke="rgba(232,184,75,0.06)"
+              stroke-width="0.5"
+              stroke-dasharray="4 8"
+            />
+            <circle
+              cx="170"
+              cy="170"
+              r="140"
+              fill="none"
+              stroke="rgba(232,184,75,0.2)"
+              stroke-width="1.5"
+              stroke-dasharray="1 10"
+            />
+            <circle
+              cx="170"
+              cy="170"
+              r="120"
+              fill="none"
+              stroke="rgba(192,57,43,0.25)"
+              stroke-width="1"
+            />
+            <g fill="#e8b84b" opacity="0.5">
+              <circle cx="170" cy="10" r="2.5" />
+              <circle cx="330" cy="170" r="2.5" />
+              <circle cx="170" cy="330" r="2.5" />
+              <circle cx="10" cy="170" r="2.5" />
+              <circle cx="288" cy="52" r="1.5" />
+              <circle cx="288" cy="288" r="1.5" />
+              <circle cx="52" cy="52" r="1.5" />
+              <circle cx="52" cy="288" r="1.5" />
+            </g>
+            <text
+              font-family="'Bebas Neue', sans-serif"
+              font-size="13"
+              letter-spacing="6"
+              fill="rgba(232,184,75,0.55)"
+            >
+              <textPath href="#textCircle">
+                ✦ ONKEL HASAN ✦ DÖNER &amp; KEBAB ✦ WIEN AUSTRIA ✦ SEIT 2010 ✦
+              </textPath>
+            </text>
+            <g stroke="rgba(232,184,75,0.3)" stroke-width="1">
+              <line x1="170" y1="12" x2="170" y2="22" />
+              <line x1="170" y1="318" x2="170" y2="328" />
+              <line x1="12" y1="170" x2="22" y2="170" />
+              <line x1="318" y1="170" x2="328" y2="170" />
+            </g>
+          </svg>
+
+          <!-- Logo inner: letter stage + placeholder -->
+          <div id="logo-inner">
+            <!-- Letters: O N K E L / H A S A N -->
+            <div id="letter-stage">
+              <div class="letter-row" id="row1">
+                <span class="ltr">O</span>
+                <span class="ltr">N</span>
+                <span class="ltr">K</span>
+                <span class="ltr">E</span>
+                <span class="ltr">L</span>
+              </div>
+              <div class="letter-row" id="row2">
+                <span class="ltr">H</span>
+                <span class="ltr">A</span>
+                <span class="ltr">S</span>
+                <span class="ltr">A</span>
+                <span class="ltr">N</span>
+              </div>
+            </div>
+
+            <!-- Logo placeholder (click to upload) -->
+            <div id="logo-placeholder" title="Click to upload logo">
+              <img id="logo-img" src="assets/logo.jpg" alt="Logo Placeholder" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div id="address">
+        Mariahilfer Str. 42<br />
+        1060 Wien, Austria<br />
+        Mo–So · 11:00–23:00
+      </div>
+
+      <!-- Scroll hint -->
+      <div id="scroll-hint">
+        <span>Entdecken</span>
+        <div id="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Script -->
+    <script src="main.js"></script>
+  </body>
 </html>
