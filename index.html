@@ -1,22 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Onkel Hasan</title>
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
   </head>
   <body>
-    <canvas id="scene" aria-label="Interactive 3D particle background"></canvas>
-
-    <main class="hero" aria-label="Centered logo area">
-      <div class="logo-shell" id="logoShell" aria-label="Onkel Hasan logo">
-        <img src="assets/logo.jpg" alt="Onkel Hasan logo" class="logo-image" />
+    <div id="canvas-container"></div>
+    <canvas id="trail-canvas"></canvas>
+    <div class="fixed-overlay">
+      <div class="logo-shell" id="logoShell">
+        <img src="assets/logo.jpg" alt="Logo" class="logo-image" />
       </div>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="main.js"></script>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>
