@@ -216,6 +216,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let pointerX = 0,
     pointerY = 0;
 
+  // Parallax Elements Setup
+  const parallaxLayers = document.querySelectorAll(".parallax-layer");
+  const layersData = Array.from(parallaxLayers).map((el) => ({
+    el,
+    speed: parseFloat(el.getAttribute("data-speed")) || 0,
+    currentY: 0,
+    targetY: 0,
+  }));
+
   window.addEventListener("scroll", () => {
     const s = window.scrollY;
     const maxScroll = Math.max(
@@ -230,6 +239,11 @@ document.addEventListener("DOMContentLoaded", () => {
     targetCamZ = baseCamZ - reversedProgress * 70;
     targetCamY = baseCamY - reversedProgress * 18;
     targetCamX = pointerX * 10;
+
+    // Update SVG targets
+    layersData.forEach((layer) => {
+      layer.targetY = s * layer.speed;
+    });
   });
 
   window.addEventListener("pointermove", (e) => {
@@ -339,6 +353,12 @@ document.addEventListener("DOMContentLoaded", () => {
     terrainGlow.rotation.set(currentRotX, currentRotY, 0);
     terrainParticles.updateMatrixWorld(); // Ensure terrain matrices are fresh for worldToLocal
 
+    // 2.5 Update SVG Parallax layers with smoothing
+    layersData.forEach((layer) => {
+      layer.currentY += (layer.targetY - layer.currentY) * 0.1;
+      layer.el.style.transform = `translate3d(0, ${layer.currentY}px, 0)`;
+    });
+
     const time = Date.now() * 0.0005;
     const pos = terrainGeometry.attributes.position.array;
 
@@ -365,6 +385,19 @@ document.addEventListener("DOMContentLoaded", () => {
       mouseWorldZ = intersectionPoint.z;
     }
 
+    // 4. Logo influence (Center of screen)
+    const logoVector = new THREE.Vector2(0, 0); // Center of viewport
+    raycaster.setFromCamera(logoVector, camera);
+    const logoIntersection = new THREE.Vector3();
+    let logoWorldX = null,
+      logoWorldZ = null;
+    if (raycaster.ray.intersectPlane(plane, logoIntersection)) {
+      terrainParticles.worldToLocal(logoIntersection);
+      logoWorldX = logoIntersection.x;
+      logoWorldZ = logoIntersection.z;
+    }
+    const logoPulse = Math.sin(time * Math.PI) * 2.5; // Syncs with 4s CSS cycle
+
     const influenceRadius = 15; // How far the mouse influences the dots
     const maxDisplacement = 5; // Maximum height displacement for the fluid effect
 
@@ -388,6 +421,19 @@ document.addEventListener("DOMContentLoaded", () => {
             influence * maxDisplacement * Math.sin(time * 5 + distance * 0.5);
         }
       }
+
+      // Apply slight displacement under the floating logo
+      if (logoWorldX !== null) {
+        const lDistSq =
+          (pos[i * 3] - logoWorldX) ** 2 + (pos[i * 3 + 2] - logoWorldZ) ** 2;
+        const lRadius = 60; // Wider area for the logo interaction
+        if (lDistSq < lRadius ** 2) {
+          const lDist = Math.sqrt(lDistSq);
+          const lInfluence = 1 - lDist / lRadius;
+          currentHeight += lInfluence * logoPulse;
+        }
+      }
+
       pos[i * 3 + 1] = currentHeight;
     }
     terrainGeometry.attributes.position.needsUpdate = true;
