@@ -19,20 +19,16 @@
       body {
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at center, #0f172a, #000);
+        background: #000;
         overflow: hidden;
         font-family: Georgia, serif;
       }
-
-      /* ── CANVAS ── */
       #bg {
         position: fixed;
         inset: 0;
         z-index: 0;
         pointer-events: none;
       }
-
-      /* ── SCROLL ROOT ── */
       #sr {
         position: fixed;
         inset: 0;
@@ -44,11 +40,9 @@
         display: none;
       }
       #track {
-        height: 200vh;
+        height: 220vh;
         pointer-events: none;
       }
-
-      /* ── STAGE ── */
       #stage {
         position: fixed;
         inset: 0;
@@ -56,8 +50,6 @@
         pointer-events: none;
         overflow: hidden;
       }
-
-      /* ── RIBBON PIECES ── */
       .rp {
         position: absolute;
         pointer-events: none;
@@ -66,39 +58,43 @@
       }
       .rp .piece-svg {
         display: block;
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
         object-fit: contain;
-        filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
+        filter: drop-shadow(0 4px 16px rgba(236, 34, 39, 0.25));
       }
 
-      /* ── KNOT FLASH ── */
       #knot-flash {
         position: fixed;
         inset: 0;
         z-index: 5;
         background: radial-gradient(
-          circle at 50% 50%,
-          rgba(236, 34, 39, 0.6) 0%,
-          transparent 65%
+          circle at 50% 46%,
+          rgba(236, 34, 39, 0.7) 0%,
+          rgba(236, 34, 39, 0.15) 40%,
+          transparent 68%
         );
         opacity: 0;
         pointer-events: none;
         will-change: opacity;
       }
 
-      /* ── LOGO ── */
       #logo {
         position: fixed;
-        top: 50%;
+        top: 46%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
         z-index: 6;
         opacity: 0;
         will-change: transform, opacity;
         pointer-events: none;
-        width: min(82vw, 480px);
-        height: min(82vw, 480px);
+        width: min(72vw, 420px);
+        height: min(72vw, 420px);
+      }
+      #logo-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
       }
       #logo img {
         width: 100%;
@@ -107,45 +103,50 @@
         border-radius: 50%;
         display: block;
       }
-      #logo::after {
-        content: "";
+      #logo-ring {
         position: absolute;
-        inset: -4px;
+        inset: -3px;
         border-radius: 50%;
-        background: transparent;
-        box-shadow: 0 0 0 0 rgba(236, 34, 39, 0);
-        will-change: box-shadow;
+        border: 1.5px solid rgba(236, 34, 39, 0);
+        transition: border-color 0.6s;
+      }
+      #logo-ring2 {
+        position: absolute;
+        inset: -10px;
+        border-radius: 50%;
+        border: 0.5px solid rgba(236, 34, 39, 0);
+        transition: border-color 0.8s 0.1s;
       }
 
-      /* ── SCROLL HINT ── */
       #hint {
         position: fixed;
-        bottom: clamp(20px, 4vh, 44px);
+        bottom: clamp(24px, 5vh, 52px);
         left: 50%;
         transform: translateX(-50%);
         z-index: 10;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 7px;
+        gap: 8px;
         pointer-events: none;
-        transition: opacity 0.5s;
+        transition: opacity 0.6s;
       }
       #hint span {
-        font-size: clamp(8px, 1.4vw, 10px);
-        letter-spacing: 0.34em;
+        font-size: clamp(7px, 1.2vw, 9px);
+        letter-spacing: 0.42em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.28);
+        color: rgba(255, 255, 255, 0.2);
+        font-family: system-ui, sans-serif;
       }
       .sline {
         width: 1px;
-        height: clamp(28px, 4vh, 44px);
+        height: clamp(32px, 4.5vh, 50px);
         background: linear-gradient(
           to bottom,
-          rgba(236, 34, 39, 0.8),
+          rgba(236, 34, 39, 0.9),
           transparent
         );
-        animation: sdrop 1.9s ease-in-out infinite;
+        animation: sdrop 2.1s ease-in-out infinite;
       }
       @keyframes sdrop {
         0% {
@@ -165,10 +166,9 @@
         }
       }
 
-      /* ── TAGLINE ── */
       #tagline {
         position: fixed;
-        bottom: clamp(16px, 3vh, 32px);
+        bottom: clamp(20px, 3.5vh, 38px);
         left: 0;
         right: 0;
         text-align: center;
@@ -178,10 +178,11 @@
         will-change: opacity;
       }
       #tagline span {
-        font-size: clamp(8px, 1.5vw, 11px);
-        letter-spacing: 0.32em;
+        font-size: clamp(7px, 1.3vw, 10px);
+        letter-spacing: 0.38em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.28);
+        font-family: system-ui, sans-serif;
       }
       .rd {
         display: inline-block;
@@ -189,9 +190,9 @@
         height: 3px;
         background: #ec2227;
         border-radius: 50%;
-        margin: 0 11px;
+        margin: 0 13px;
         vertical-align: middle;
-        animation: dp 2.4s ease-in-out infinite;
+        animation: dp 2.6s ease-in-out infinite;
       }
       @keyframes dp {
         0%,
@@ -200,21 +201,49 @@
           transform: scale(1);
         }
         50% {
-          opacity: 0.25;
-          transform: scale(0.35);
+          opacity: 0.2;
+          transform: scale(0.3);
         }
       }
 
-      /* ── CURSOR ── */
+      #brand-name {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 7;
+        opacity: 0;
+        pointer-events: none;
+        text-align: center;
+        will-change: opacity, transform;
+        margin-top: min(40vw, 230px);
+      }
+      #brand-name .name {
+        font-size: clamp(15px, 2.5vw, 22px);
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.75);
+        font-family: system-ui, sans-serif;
+        font-weight: 300;
+      }
+      #brand-name .sub {
+        font-size: clamp(8px, 1.1vw, 10px);
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: rgba(236, 34, 39, 0.7);
+        font-family: system-ui, sans-serif;
+        margin-top: 8px;
+      }
+
       #cg {
         position: fixed;
-        width: 300px;
-        height: 300px;
+        width: 360px;
+        height: 360px;
         border-radius: 50%;
         background: radial-gradient(
           circle,
-          rgba(236, 34, 39, 0.06) 0%,
-          transparent 70%
+          rgba(236, 34, 39, 0.05) 0%,
+          transparent 68%
         );
         pointer-events: none;
         z-index: 1;
@@ -232,11 +261,9 @@
   <body>
     <canvas id="bg"></canvas>
     <div id="cg"></div>
-
     <div id="sr"><div id="track"></div></div>
 
     <div id="stage">
-      <!-- LEFT RIBBON: 4 pieces fly from left -->
       <div class="rp lp lp0" id="p-A3">
         <img class="piece-svg" src="assets/SVG/Asset 3.svg" />
       </div>
@@ -249,8 +276,6 @@
       <div class="rp lp lp3" id="p-A12">
         <img class="piece-svg" src="assets/SVG/Asset 12.svg" />
       </div>
-
-      <!-- RIGHT RIBBON: 6 pieces fly from right -->
       <div class="rp rp-el rp0" id="p-A5">
         <img class="piece-svg" src="assets/SVG/Asset 5.svg" />
       </div>
@@ -270,23 +295,24 @@
         <img class="piece-svg" src="assets/SVG/Asset 9.svg" />
       </div>
     </div>
-    <!-- /stage -->
 
-    <!-- Knot flash -->
     <div id="knot-flash"></div>
-
-    <!-- Final logo -->
     <div id="logo">
-      <img src="assets/logo.jpg" />
+      <div id="logo-inner">
+        <img src="assets/logo.jpg" />
+        <div id="logo-ring"></div>
+        <div id="logo-ring2"></div>
+      </div>
+    </div>
+    <div id="brand-name">
+      <div class="name">Onkel Hasan</div>
+      <div class="sub">Original &nbsp;·&nbsp; Authentic</div>
     </div>
 
-    <!-- Scroll hint -->
     <div id="hint">
       <div class="sline"></div>
       <span>scroll</span>
     </div>
-
-    <!-- Tagline -->
     <div id="tagline">
       <span>Onkel Hasan</span>
       <span class="rd"></span>
@@ -296,15 +322,10 @@
     </div>
 
     <script>
-      // ─────────────────────────────────────────────────────────
-      //  CANVAS BACKGROUND — cyan particle network
-      // ─────────────────────────────────────────────────────────
       const bgCanvas = document.getElementById("bg");
       const bgCtx = bgCanvas.getContext("2d");
-
       let W = 0,
         H = 0;
-
       function resizeBg() {
         W = bgCanvas.width = window.innerWidth;
         H = bgCanvas.height = window.innerHeight;
@@ -312,92 +333,100 @@
       resizeBg();
       window.addEventListener("resize", resizeBg);
 
-      // Particles
       const particles = [];
-      const PARTICLE_COUNT = 120;
-
-      function initParticles() {
+      const PC = 90;
+      function initP() {
         particles.length = 0;
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
+        for (let i = 0; i < PC; i++)
           particles.push({
             x: Math.random() * W,
             y: Math.random() * H,
-            vx: (Math.random() - 0.5) * 2,
-            vy: (Math.random() - 0.5) * 2,
-            r: Math.random() * 2 + 1,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: (Math.random() - 0.5) * 0.8,
+            r: Math.random() * 1.5 + 0.5,
+            pulse: Math.random() * Math.PI * 2,
           });
-        }
       }
-      initParticles();
-      window.addEventListener("resize", initParticles);
+      initP();
+      window.addEventListener("resize", initP);
 
-      // Mouse interaction
       let mx = W / 2,
         my = H / 2;
       window.addEventListener("mousemove", (e) => {
         mx = e.clientX;
         my = e.clientY;
         particles.forEach((p) => {
-          const dx = p.x - mx;
-          const dy = p.y - my;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
-            p.vx += dx * 0.0005;
-            p.vy += dy * 0.0005;
+          const dx = p.x - mx,
+            dy = p.y - my,
+            d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 120) {
+            p.vx += dx * 0.0004;
+            p.vy += dy * 0.0004;
           }
         });
       });
 
-      // Ribbon trail segments
       const trailSegs = [];
       function addTrail(x, y, col, alpha) {
-        trailSegs.push({ x, y, col, alpha, life: 0, maxL: 60 });
+        trailSegs.push({ x, y, col, alpha, life: 0, maxL: 50 });
       }
 
+      let bgT = 0;
       function drawBg() {
+        bgT += 0.005;
         bgCtx.clearRect(0, 0, W, H);
-
-        // Dark base
-        bgCtx.fillStyle = "#060d1a";
+        bgCtx.fillStyle = "#05080f";
         bgCtx.fillRect(0, 0, W, H);
 
-        // Subtle red vignette at bottom (keeps brand feel)
         const rg = bgCtx.createRadialGradient(
           W * 0.5,
-          H,
+          H * 0.6,
           0,
           W * 0.5,
-          H,
           H * 0.6,
+          H * 0.55,
         );
-        rg.addColorStop(0, "rgba(236,34,39,0.04)");
-        rg.addColorStop(1, "rgba(236,34,39,0)");
+        rg.addColorStop(0, "rgba(180,10,14,0.05)");
+        rg.addColorStop(1, "rgba(0,0,0,0)");
         bgCtx.fillStyle = rg;
         bgCtx.fillRect(0, 0, W, H);
 
-        // Update + draw particles
+        const tg = bgCtx.createRadialGradient(
+          W * 0.5,
+          0,
+          0,
+          W * 0.5,
+          0,
+          H * 0.4,
+        );
+        tg.addColorStop(0, "rgba(20,30,60,0.3)");
+        tg.addColorStop(1, "rgba(0,0,0,0)");
+        bgCtx.fillStyle = tg;
+        bgCtx.fillRect(0, 0, W, H);
+
         for (let i = 0; i < particles.length; i++) {
           const p = particles[i];
+          p.pulse += 0.02;
           p.x += p.vx;
           p.y += p.vy;
+          p.vx *= 0.999;
+          p.vy *= 0.999;
           if (p.x < 0 || p.x > W) p.vx *= -1;
           if (p.y < 0 || p.y > H) p.vy *= -1;
-
-          // Dot
+          const pulseAlpha = 0.35 + Math.sin(p.pulse) * 0.2;
           bgCtx.beginPath();
           bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          bgCtx.fillStyle = "rgba(0,255,255,0.6)";
+          bgCtx.fillStyle = `rgba(180,190,220,${pulseAlpha})`;
           bgCtx.fill();
-
-          // Link lines
           for (let j = i + 1; j < particles.length; j++) {
-            const p2 = particles[j];
-            const dx = p.x - p2.x;
-            const dy = p.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120) {
-              bgCtx.strokeStyle = "rgba(0,255,255,0.08)";
-              bgCtx.lineWidth = 1;
+            const p2 = particles[j],
+              dx = p.x - p2.x,
+              dy = p.y - p2.y,
+              dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 110) {
+              const a = (1 - dist / 110) * 0.07;
+              bgCtx.strokeStyle = `rgba(150,160,210,${a})`;
+              bgCtx.lineWidth = 0.5;
               bgCtx.beginPath();
               bgCtx.moveTo(p.x, p.y);
               bgCtx.lineTo(p2.x, p2.y);
@@ -406,15 +435,14 @@
           }
         }
 
-        // Ribbon trails on top
         for (let i = trailSegs.length - 1; i >= 0; i--) {
-          const s = trailSegs[i];
-          const f = 1 - s.life / s.maxL;
+          const s = trailSegs[i],
+            f = 1 - s.life / s.maxL;
           bgCtx.save();
-          bgCtx.globalAlpha = s.alpha * f * 0.4;
+          bgCtx.globalAlpha = s.alpha * f * 0.5;
           bgCtx.fillStyle = s.col;
           bgCtx.beginPath();
-          bgCtx.arc(s.x, s.y, 3 * f, 0, Math.PI * 2);
+          bgCtx.arc(s.x, s.y, 2.5 * f, 0, Math.PI * 2);
           bgCtx.fill();
           bgCtx.restore();
           s.life++;
@@ -422,64 +450,43 @@
         }
       }
 
-      // ─────────────────────────────────────────────────────────
-      //  PIECES SETUP
-      // ─────────────────────────────────────────────────────────
       const leftIds = ["p-A3", "p-A8", "p-A11", "p-A12"];
       const rightIds = ["p-A5", "p-A6", "p-A13", "p-A14", "p-A10", "p-A9"];
-
       const leftEls = leftIds.map((id) => document.getElementById(id));
       const rightEls = rightIds.map((id) => document.getElementById(id));
       const allEls = [...leftEls, ...rightEls];
-
       allEls.forEach((el) => {
         el.style.opacity = "0";
         el.style.transform = "translate(-50%,-50%)";
       });
 
-      // ─────────────────────────────────────────────────────────
-      //  RIBBON PATH MATH
-      // ─────────────────────────────────────────────────────────
-      function getRibbonPos(side, pieceIdx, totalInSide, t, phase) {
+      function getRibbonPos(side, idx, t, phase) {
         const cx = W * 0.5,
-          cy = H * 0.5;
-        const staggerOffset = pieceIdx * 0.08;
-        const tAdj = Math.max(0, t - staggerOffset);
+          cy = H * 0.46;
+        const stag = idx * 0.07;
+        const tAdj = Math.max(0, t - stag);
         let x, y, rot, scale, opacity;
-
         if (side === "L") {
-          const startX = -150;
-          x = lerp(startX, cx, ease(tAdj));
-          const wAmp = (1 - tAdj) * H * 0.3;
-          y =
-            cy + Math.sin(tAdj * Math.PI * 2.5 + pieceIdx * 1.1 + phase) * wAmp;
-          rot = lerp(
-            -45 - pieceIdx * 15,
-            pieceIdx % 2 === 0 ? 15 : -10,
-            ease(tAdj),
-          );
-          scale = lerp(0.3, 0.85, ease(tAdj));
-          opacity = tAdj < 0.05 ? tAdj / 0.05 : 1;
+          const sx = -160;
+          x = lerp(sx, cx, ease(tAdj));
+          const wAmp = (1 - tAdj) * H * 0.28;
+          y = cy + Math.sin(tAdj * Math.PI * 2.2 + idx * 1.2 + phase) * wAmp;
+          rot = lerp(-50 - idx * 12, idx % 2 === 0 ? 12 : -8, ease(tAdj));
+          scale = lerp(0.25, 0.82, ease(tAdj));
+          opacity = tAdj < 0.06 ? tAdj / 0.06 : 1;
         } else {
-          const startX = W + 150;
-          x = lerp(startX, cx, ease(tAdj));
-          const wAmp = (1 - tAdj) * H * 0.3;
+          const sx = W + 160;
+          x = lerp(sx, cx, ease(tAdj));
+          const wAmp = (1 - tAdj) * H * 0.28;
           y =
             cy +
-            Math.sin(tAdj * Math.PI * 2.5 + pieceIdx * 1.3 + phase + Math.PI) *
-              wAmp;
-          rot = lerp(
-            45 + pieceIdx * 12,
-            pieceIdx % 2 === 0 ? -12 : 8,
-            ease(tAdj),
-          );
-          scale = lerp(0.3, 0.85, ease(tAdj));
-          opacity = tAdj < 0.05 ? tAdj / 0.05 : 1;
+            Math.sin(tAdj * Math.PI * 2.2 + idx * 1.4 + phase + Math.PI) * wAmp;
+          rot = lerp(50 + idx * 10, idx % 2 === 0 ? -10 : 7, ease(tAdj));
+          scale = lerp(0.25, 0.82, ease(tAdj));
+          opacity = tAdj < 0.06 ? tAdj / 0.06 : 1;
         }
-
         return { x, y, rot, scale, opacity };
       }
-
       function lerp(a, b, t) {
         return a + (b - a) * t;
       }
@@ -488,22 +495,21 @@
         return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       }
 
-      // ─────────────────────────────────────────────────────────
-      //  SCROLL DRIVEN ANIMATION
-      // ─────────────────────────────────────────────────────────
       const scrollRoot = document.getElementById("sr");
       const hint = document.getElementById("hint");
       const tagline = document.getElementById("tagline");
       const logo = document.getElementById("logo");
+      const logoRing = document.getElementById("logo-ring");
+      const logoRing2 = document.getElementById("logo-ring2");
       const knotFlash = document.getElementById("knot-flash");
-
+      const brandName = document.getElementById("brand-name");
       let scrollP = 0;
 
       scrollRoot.addEventListener(
         "scroll",
         () => {
-          const sY = scrollRoot.scrollTop;
-          const sH = scrollRoot.scrollHeight - scrollRoot.clientHeight;
+          const sY = scrollRoot.scrollTop,
+            sH = scrollRoot.scrollHeight - scrollRoot.clientHeight;
           scrollP = Math.min(sY / sH, 1);
           updateScene();
         },
@@ -512,68 +518,52 @@
 
       function updateScene() {
         const p = scrollP;
-
-        hint.style.opacity = Math.max(0, 1 - p * 5);
-
+        hint.style.opacity = Math.max(0, 1 - p * 6);
         const ribbonP = Math.min(p / 0.72, 1);
 
         leftEls.forEach((el, i) => {
-          const pos = getRibbonPos("L", i, leftEls.length, ribbonP, i * 0.7);
+          const pos = getRibbonPos("L", i, ribbonP, i * 0.7);
           el.style.left = pos.x + "px";
           el.style.top = pos.y + "px";
           el.style.transform = `translate(-50%,-50%) rotate(${pos.rot}deg) scale(${pos.scale})`;
           el.style.opacity = pos.opacity;
-          if (ribbonP > 0.05 && ribbonP < 0.72 && Math.random() < 0.3)
-            addTrail(pos.x, pos.y, "#ffffff", 0.3);
+          if (ribbonP > 0.05 && ribbonP < 0.72 && Math.random() < 0.25)
+            addTrail(pos.x, pos.y, "#d4d4d8", 0.25);
         });
-
         rightEls.forEach((el, i) => {
-          const pos = getRibbonPos(
-            "R",
-            i,
-            rightEls.length,
-            ribbonP,
-            i * 0.9 + 0.5,
-          );
+          const pos = getRibbonPos("R", i, ribbonP, i * 0.9 + 0.5);
           el.style.left = pos.x + "px";
           el.style.top = pos.y + "px";
           el.style.transform = `translate(-50%,-50%) rotate(${pos.rot}deg) scale(${pos.scale})`;
           el.style.opacity = pos.opacity;
-          if (ribbonP > 0.05 && ribbonP < 0.72 && Math.random() < 0.3)
-            addTrail(pos.x, pos.y, "#ec2227", 0.25);
+          if (ribbonP > 0.05 && ribbonP < 0.72 && Math.random() < 0.25)
+            addTrail(pos.x, pos.y, "#ec2227", 0.22);
         });
 
         if (p > 0.72) {
           const kP = Math.min((p - 0.72) / 0.1, 1);
-
           leftEls.forEach((el, i) => {
-            const stag = i * 0.06;
-            const lkP = ease(
-              Math.max(0, Math.min((kP - stag) / (1 - stag * 3), 1)),
-            );
+            const stag = i * 0.06,
+              lkP = ease(
+                Math.max(0, Math.min((kP - stag) / (1 - stag * 3), 1)),
+              );
             el.style.left = W * 0.5 + "px";
-            el.style.top = H * 0.5 + "px";
-            const scIn = lerp(0.85, 0.0, lkP);
-            const rotIn = lerp(0, 360 * (i % 2 === 0 ? 1 : -1), lkP);
-            el.style.transform = `translate(-50%,-50%) rotate(${rotIn}deg) scale(${scIn})`;
+            el.style.top = H * 0.46 + "px";
+            el.style.transform = `translate(-50%,-50%) rotate(${lerp(0, 360 * (i % 2 === 0 ? 1 : -1), lkP)}deg) scale(${lerp(0.82, 0, lkP)})`;
             el.style.opacity = 1 - lkP;
           });
-
           rightEls.forEach((el, i) => {
-            const stag = i * 0.05;
-            const lkP = ease(
-              Math.max(0, Math.min((kP - stag) / (1 - stag * 4), 1)),
-            );
+            const stag = i * 0.05,
+              lkP = ease(
+                Math.max(0, Math.min((kP - stag) / (1 - stag * 4), 1)),
+              );
             el.style.left = W * 0.5 + "px";
-            el.style.top = H * 0.5 + "px";
-            const scIn = lerp(0.85, 0.0, lkP);
-            const rotIn = lerp(0, 360 * (i % 2 === 0 ? -1 : 1), lkP);
-            el.style.transform = `translate(-50%,-50%) rotate(${rotIn}deg) scale(${scIn})`;
+            el.style.top = H * 0.46 + "px";
+            el.style.transform = `translate(-50%,-50%) rotate(${lerp(0, 360 * (i % 2 === 0 ? -1 : 1), lkP)}deg) scale(${lerp(0.82, 0, lkP)})`;
             el.style.opacity = 1 - lkP;
           });
-
           const flashP = kP < 0.5 ? kP / 0.5 : 1 - (kP - 0.5) / 0.5;
-          knotFlash.style.opacity = flashP * 0.7;
+          knotFlash.style.opacity = flashP * 0.85;
         } else {
           knotFlash.style.opacity = 0;
         }
@@ -582,36 +572,41 @@
           const lP = Math.min((p - 0.82) / 0.15, 1);
           const lE = ease(lP);
           logo.style.opacity = lE;
-          logo.style.transform = `translate(-50%,-50%) scale(${lerp(0.5, 1, lE)})`;
+          logo.style.transform = `translate(-50%,-50%) scale(${lerp(0.55, 1, lE)})`;
           logo.style.pointerEvents = lP > 0.5 ? "auto" : "none";
-          const glow = Math.round(lE * 40);
-          logo.style.filter = `drop-shadow(0 0 ${glow}px rgba(236,34,39,${lE * 0.6}))`;
+          const glow = Math.round(lE * 50);
+          logo.style.filter = `drop-shadow(0 0 ${glow}px rgba(236,34,39,${lE * 0.55}))`;
+          logoRing.style.borderColor = `rgba(236,34,39,${lE * 0.5})`;
+          logoRing2.style.borderColor = `rgba(236,34,39,${lE * 0.18})`;
+          brandName.style.opacity = lE * 0.9;
+          brandName.style.transform = `translate(-50%,-50%) translateY(${lerp(10, 0, lE)}px)`;
+          brandName.style.marginTop = `min(${lerp(50, 40, lE)}vw,${lerp(270, 230, lE)}px)`;
         } else {
           logo.style.opacity = 0;
-          logo.style.transform = "translate(-50%,-50%) scale(0.5)";
+          logo.style.transform = "translate(-50%,-50%) scale(0.55)";
           logo.style.filter = "none";
+          logoRing.style.borderColor = "rgba(236,34,39,0)";
+          logoRing2.style.borderColor = "rgba(236,34,39,0)";
+          brandName.style.opacity = 0;
         }
 
-        const tP = Math.max(0, Math.min((p - 0.9) / 0.08, 1));
+        const tP = Math.max(0, Math.min((p - 0.92) / 0.07, 1));
         tagline.style.opacity = ease(tP);
       }
 
-      // ─────────────────────────────────────────────────────────
-      //  ENTRANCE
-      // ─────────────────────────────────────────────────────────
       function enterPieces() {
         leftEls.forEach((el, i) => {
           el.style.transition = "none";
           el.style.left = "-200px";
-          el.style.top = H * 0.25 + i * (H * 0.18) + "px";
-          el.style.transform = `translate(-50%,-50%) rotate(${-30 - i * 20}deg) scale(0.2)`;
+          el.style.top = H * 0.2 + i * (H * 0.18) + "px";
+          el.style.transform = `translate(-50%,-50%) rotate(${-30 - i * 20}deg) scale(0.15)`;
           el.style.opacity = "0";
         });
         rightEls.forEach((el, i) => {
           el.style.transition = "none";
           el.style.left = W + 200 + "px";
-          el.style.top = H * 0.25 + i * (H * 0.12) + "px";
-          el.style.transform = `translate(-50%,-50%) rotate(${30 + i * 15}deg) scale(0.2)`;
+          el.style.top = H * 0.2 + i * (H * 0.12) + "px";
+          el.style.transform = `translate(-50%,-50%) rotate(${30 + i * 15}deg) scale(0.15)`;
           el.style.opacity = "0";
         });
 
@@ -619,70 +614,61 @@
           setTimeout(
             () => {
               el.style.transition =
-                "left 1.2s cubic-bezier(0.16,1,0.3,1), top 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1), opacity .8s ease";
-              el.style.left = W * 0.12 + i * (W * 0.06) + "px";
+                "left 1.4s cubic-bezier(0.16,1,0.3,1),top 1.4s cubic-bezier(0.16,1,0.3,1),transform 1.4s cubic-bezier(0.16,1,0.3,1),opacity 1s ease";
+              el.style.left = W * 0.1 + i * (W * 0.055) + "px";
               el.style.top =
-                H * 0.25 + i * (H * 0.18) + Math.sin(i) * 40 + "px";
-              el.style.transform = `translate(-50%,-50%) rotate(${-15 + i * 10}deg) scale(0.8)`;
-              el.style.opacity = "0.85";
+                H * 0.18 + i * (H * 0.18) + Math.sin(i) * 50 + "px";
+              el.style.transform = `translate(-50%,-50%) rotate(${-18 + i * 12}deg) scale(0.8)`;
+              el.style.opacity = "0.9";
             },
-            200 + i * 140,
+            200 + i * 160,
           );
         });
-
         rightEls.forEach((el, i) => {
           setTimeout(
             () => {
               el.style.transition =
-                "left 1.2s cubic-bezier(0.16,1,0.3,1), top 1.2s cubic-bezier(0.16,1,0.3,1), transform 1.2s cubic-bezier(0.16,1,0.3,1), opacity .8s ease";
-              el.style.left = W * 0.85 - i * (W * 0.06) + "px";
+                "left 1.4s cubic-bezier(0.16,1,0.3,1),top 1.4s cubic-bezier(0.16,1,0.3,1),transform 1.4s cubic-bezier(0.16,1,0.3,1),opacity 1s ease";
+              el.style.left = W * 0.88 - i * (W * 0.055) + "px";
               el.style.top =
-                H * 0.25 + i * (H * 0.12) + Math.sin(i + 2) * 40 + "px";
-              el.style.transform = `translate(-50%,-50%) rotate(${15 - i * 8}deg) scale(0.8)`;
-              el.style.opacity = "0.85";
+                H * 0.18 + i * (H * 0.12) + Math.sin(i + 2) * 50 + "px";
+              el.style.transform = `translate(-50%,-50%) rotate(${18 - i * 9}deg) scale(0.8)`;
+              el.style.opacity = "0.9";
             },
-            200 + i * 120,
+            200 + i * 130,
           );
         });
 
         setTimeout(() => {
-          allEls.forEach((el) => {
-            el.style.transition = "none";
-          });
+          allEls.forEach((el) => (el.style.transition = "none"));
           startIdleFloat();
-        }, 1800);
+        }, 2000);
       }
 
-      // ─────────────────────────────────────────────────────────
-      //  IDLE FLOAT
-      // ─────────────────────────────────────────────────────────
       let idleT = 0,
         idleRunning = false;
       const idlePos = [];
-
       function storeIdlePos() {
         idlePos.length = 0;
         allEls.forEach((el) => {
-          const left = parseFloat(el.style.left) || 0;
-          const top = parseFloat(el.style.top) || 0;
+          const left = parseFloat(el.style.left) || 0,
+            top = parseFloat(el.style.top) || 0;
           const m = el.style.transform.match(/rotate\(([^d]+)deg\)/);
-          const rot = m ? parseFloat(m[1]) : 0;
-          idlePos.push({ left, top, rot });
+          idlePos.push({ left, top, rot: m ? parseFloat(m[1]) : 0 });
         });
       }
-
       function startIdleFloat() {
         storeIdlePos();
         idleRunning = true;
         function tick() {
           if (!idleRunning || scrollP > 0.02) return;
-          idleT += 0.012;
+          idleT += 0.01;
           allEls.forEach((el, i) => {
             if (i >= idlePos.length) return;
             const base = idlePos[i];
-            const dy = Math.sin(idleT * 1.1 + i * 0.8) * 7;
-            const dx = Math.cos(idleT * 0.7 + i * 0.6) * 4;
-            const dr = Math.sin(idleT * 0.9 + i * 1.1) * 3;
+            const dy = Math.sin(idleT * 1.0 + i * 0.85) * 8;
+            const dx = Math.cos(idleT * 0.65 + i * 0.6) * 5;
+            const dr = Math.sin(idleT * 0.85 + i * 1.1) * 2.5;
             el.style.left = base.left + dx + "px";
             el.style.top = base.top + dy + "px";
             el.style.transform = `translate(-50%,-50%) rotate(${base.rot + dr}deg) scale(0.8)`;
@@ -692,9 +678,6 @@
         tick();
       }
 
-      // ─────────────────────────────────────────────────────────
-      //  CURSOR GLOW
-      // ─────────────────────────────────────────────────────────
       const cg = document.getElementById("cg");
       let cgx = W / 2,
         cgy = H / 2,
@@ -705,39 +688,42 @@
         cmy = e.clientY;
       });
       (function gl() {
-        cgx += (cmx - cgx) * 0.06;
-        cgy += (cmy - cgy) * 0.06;
+        cgx += (cmx - cgx) * 0.07;
+        cgy += (cmy - cgy) * 0.07;
         cg.style.left = cgx + "px";
         cg.style.top = cgy + "px";
         requestAnimationFrame(gl);
       })();
 
-      // ─────────────────────────────────────────────────────────
-      //  LOGO CLICK
-      // ─────────────────────────────────────────────────────────
       logo.addEventListener("click", () => {
         logo.animate(
           [
             { filter: "drop-shadow(0 0 20px rgba(236,34,39,.5))" },
             {
-              filter: "drop-shadow(0 0 80px rgba(236,34,39,1)) brightness(1.3)",
+              filter:
+                "drop-shadow(0 0 90px rgba(236,34,39,1)) brightness(1.25)",
             },
             { filter: "drop-shadow(0 0 20px rgba(236,34,39,.5))" },
           ],
-          { duration: 600, easing: "ease-out" },
+          { duration: 700, easing: "ease-out" },
+        );
+        logoRing.animate(
+          [
+            { borderColor: "rgba(236,34,39,0.5)" },
+            { borderColor: "rgba(236,34,39,1)" },
+            { borderColor: "rgba(236,34,39,0.5)" },
+          ],
+          { duration: 700, easing: "ease-out" },
         );
       });
 
-      // ─────────────────────────────────────────────────────────
-      //  MAIN LOOP
-      // ─────────────────────────────────────────────────────────
       function loop() {
         drawBg();
         requestAnimationFrame(loop);
       }
       loop();
-
-      setTimeout(enterPieces, 300);
+      setTimeout(enterPieces, 350);
     </script>
   </body>
 </html>
+[]
